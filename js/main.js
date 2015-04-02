@@ -16,10 +16,10 @@ function Car(x, y) {
         direction = direction.rotate(3);
     }
     function throttle (){
-        speed = -1.0;
+        speed -= 0.5;
     }
     function brake(){
-        speed = 1.0;
+        speed += 0.5;
     }
     function render() {
         sprite.position = pos;
@@ -41,29 +41,30 @@ function Car(x, y) {
 
 }
 
-car = new Car(view.center.x, view.center.y);
+var car = new Car(view.center.x, view.center.y);
+var npcCar = new Car(view.center.x + 20, view.center.y);
 
-var frame = 0;
-console.log(Key);   
+var frame = 0;  
 function onFrame() {
-    if (Key.isDown('left')){
+    if (Key.isDown('a')){
         car.steerLeft();
+
     }
-    if (Key.isDown('right')) {
+    if (Key.isDown('d')) {
         car.steerRight();
-    }else{
-        console.log("key right up");
     }
-    if (Key.isDown('up')){
+    if (Key.isDown('w')){
         car.throttle();
     }
-    if (Key.isDown('down')){
+    if (Key.isDown('s')){
         car.brake();
     }
     frame += 0.01;
     frame %= 2 * Math.PI;
     car.update();
+    npcCar.update();
     car.render();
+    npcCar.render();
 }
 
 
